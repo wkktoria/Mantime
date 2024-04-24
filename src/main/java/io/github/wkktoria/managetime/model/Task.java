@@ -1,6 +1,7 @@
 package io.github.wkktoria.managetime.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "tasks")
@@ -8,6 +9,7 @@ class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotBlank(message = "Task description cannot be empty")
     private String description;
     private boolean done;
 
