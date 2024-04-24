@@ -11,7 +11,10 @@ class Task {
     private String description;
     private boolean done;
 
-    Long getId() {
+    public Task() {
+    }
+
+    public Long getId() {
         return id;
     }
 
@@ -19,7 +22,7 @@ class Task {
         this.id = id;
     }
 
-    String getDescription() {
+    public String getDescription() {
         return description;
     }
 
@@ -27,7 +30,7 @@ class Task {
         this.description = description;
     }
 
-    boolean isDone() {
+    public boolean isDone() {
         return done;
     }
 
