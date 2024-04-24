@@ -12,7 +12,7 @@
     <artifactId>managetime</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>managetime</name>
-    <description>managetime</description>
+    <description>Simple time management application</description>
     <properties>
         <java.version>21</java.version>
     </properties>
