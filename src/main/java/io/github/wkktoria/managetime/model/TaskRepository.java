@@ -8,7 +8,7 @@ import org.springframework.data.rest.core.annotation.RestResource;
 import java.util.List;
 
 @RepositoryRestResource
-interface TaskRepository extends JpaRepository<Task, Long> {
+public interface TaskRepository extends JpaRepository<Task, Long> {
     @RestResource(path = "done", rel = "done")
     List<Task> findByDone(@Param("status") boolean done);
 }
