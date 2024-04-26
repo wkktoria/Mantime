@@ -2,12 +2,12 @@ package io.github.wkktoria.managetime.controller;
 
 import io.github.wkktoria.managetime.model.Task;
 import io.github.wkktoria.managetime.model.TaskRepository;
+import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -30,5 +30,16 @@ class TaskController {
     ResponseEntity<List<Task>> readAllTasks(Pageable pageable) {
         logger.info("Reading all the pageable tasks");
         return ResponseEntity.ok(repository.findAll(pageable).getContent());
+    }
+
+    @PutMapping("/tasks/{id}")
+    ResponseEntity<?> updateTask(@PathVariable Long id, @RequestBody @Valid Task task) {
+        logger.info("Updating task with id {}", id);
+        if (!repository.existsById(id)) {
+            return ResponseEntity.notFound().build();
+        }
+        task.setId(id);
+        repository.save(task);
+        return ResponseEntity.noContent().build();
     }
 }

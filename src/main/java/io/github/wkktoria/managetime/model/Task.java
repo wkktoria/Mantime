@@ -20,7 +20,7 @@ public class Task {
         return id;
     }
 
-    void setId(Long id) {
+    public void setId(final Long id) {
         this.id = id;
     }
 

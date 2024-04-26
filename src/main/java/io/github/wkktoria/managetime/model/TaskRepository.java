@@ -14,6 +14,8 @@ public interface TaskRepository {
 
     Optional<Task> findById(Long id);
 
+    boolean existsById(Long id);
+
     Task save(Task task);
 
     List<Task> findByDone(@Param("status") boolean done);
