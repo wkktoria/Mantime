@@ -4,7 +4,6 @@ import io.github.wkktoria.managetime.model.Task;
 import io.github.wkktoria.managetime.model.TaskRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.rest.webmvc.RepositoryRestController;
 import org.springframework.http.ResponseEntity;
@@ -28,8 +27,8 @@ class TaskController {
     }
 
     @GetMapping("/tasks")
-    ResponseEntity<Page<Task>> readAllTasks(Pageable pageable) {
+    ResponseEntity<List<Task>> readAllTasks(Pageable pageable) {
         logger.info("Reading all the pageable tasks");
-        return ResponseEntity.ok(repository.findAll(pageable));
+        return ResponseEntity.ok(repository.findAll(pageable).getContent());
     }
 }
