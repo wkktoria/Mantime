@@ -32,6 +32,15 @@ class TaskController {
         return ResponseEntity.ok(repository.findAll(pageable).getContent());
     }
 
+    @GetMapping("/tasks/{id}")
+    ResponseEntity<Task> readTask(@PathVariable Long id) {
+        logger.info("Reading task with id {}", id);
+        if (repository.findById(id).isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(repository.findById(id).get());
+    }
+
     @PutMapping("/tasks/{id}")
     ResponseEntity<?> updateTask(@PathVariable Long id, @RequestBody @Valid Task task) {
         logger.info("Updating task with id {}", id);
