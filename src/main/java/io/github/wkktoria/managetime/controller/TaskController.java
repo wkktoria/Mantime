@@ -19,7 +19,7 @@ class TaskController {
         this.repository = repository;
     }
 
-    @GetMapping("/tasks")
+    @GetMapping(value = "/tasks", params = {"!sort", "!page", "!size"})
     ResponseEntity<List<Task>> readAllTasks() {
         logger.info("Reading all the tasks");
         return ResponseEntity.ok(repository.findAll());
