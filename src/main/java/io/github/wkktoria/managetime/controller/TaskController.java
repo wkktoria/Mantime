@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -41,8 +42,15 @@ class TaskController {
         return ResponseEntity.ok(repository.findById(id).get());
     }
 
+    @PostMapping("/tasks")
+    ResponseEntity<Task> createTask(@Valid @RequestBody Task task) {
+        logger.info("Creating new task");
+        Task result = repository.save(task);
+        return ResponseEntity.created(URI.create("/tasks/" + result.getId())).body(result);
+    }
+
     @PutMapping("/tasks/{id}")
-    ResponseEntity<?> updateTask(@PathVariable Long id, @RequestBody @Valid Task task) {
+    ResponseEntity<Void> updateTask(@PathVariable Long id, @Valid @RequestBody Task task) {
         logger.info("Updating task with id {}", id);
         if (!repository.existsById(id)) {
             return ResponseEntity.notFound().build();
