@@ -13,4 +13,5 @@ spring:
   main:
     banner-mode: off
 task:
-  allowMultipleTasksFromTemplate: false
+  template:
+    allowMultipleTasks: false

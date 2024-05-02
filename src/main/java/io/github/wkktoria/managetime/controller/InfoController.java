@@ -14,6 +14,6 @@ class InfoController {
 
     @GetMapping("info/allowMultipleTasks")
     boolean isAllowMultipleTasks() {
-        return taskConfigurationProperties.isAllowMultipleTasksFromTemplate();
+        return taskConfigurationProperties.getTemplate().isAllowMultipleTasks();
     }
 }
