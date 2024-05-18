@@ -8,10 +8,10 @@ import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 
 @SpringBootApplication
-public class ManagetimeApplication {
+public class ManageTimeApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ManagetimeApplication.class, args);
+        SpringApplication.run(ManageTimeApplication.class, args);
     }
 
     @Bean
