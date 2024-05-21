@@ -3,6 +3,8 @@ package io.github.wkktoria.managetime.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "tasks")
 public class Task {
@@ -12,6 +14,7 @@ public class Task {
     @NotBlank(message = "Task description cannot be empty")
     private String description;
     private boolean done;
+    private LocalDateTime deadline;
 
     public Task() {
     }
@@ -38,5 +41,13 @@ public class Task {
 
     public void setDone(boolean completed) {
         this.done = completed;
+    }
+
+    public LocalDateTime getDeadline() {
+        return deadline;
+    }
+
+    void setDeadline(LocalDateTime deadline) {
+        this.deadline = deadline;
     }
 }
