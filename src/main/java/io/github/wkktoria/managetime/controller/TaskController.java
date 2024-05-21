@@ -50,14 +50,14 @@ class TaskController {
         return ResponseEntity.created(URI.create("/tasks/" + result.getId())).body(result);
     }
 
+    @Transactional
     @PutMapping("/tasks/{id}")
-    ResponseEntity<Void> updateTask(@PathVariable Long id, @Valid @RequestBody Task task) {
+    ResponseEntity<Void> updateTask(@PathVariable Long id, @Valid @RequestBody Task toUpdate) {
         logger.info("Updating task with id {}", id);
         if (!repository.existsById(id)) {
             return ResponseEntity.notFound().build();
         }
-        task.setId(id);
-        repository.save(task);
+        repository.findById(id).ifPresent(task -> task.updateFrom(toUpdate));
         return ResponseEntity.noContent().build();
     }
 
