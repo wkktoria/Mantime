@@ -36,7 +36,7 @@ public class Task {
         return done;
     }
 
-    void setDone(boolean completed) {
+    public void setDone(boolean completed) {
         this.done = completed;
     }
 }
