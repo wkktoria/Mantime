@@ -33,7 +33,7 @@ public class Task {
         return description;
     }
 
-    void setDescription(String description) {
+    void setDescription(final String description) {
         this.description = description;
     }
 
@@ -41,19 +41,19 @@ public class Task {
         return done;
     }
 
-    public void setDone(boolean completed) {
-        this.done = completed;
+    public void setDone(final boolean done) {
+        this.done = done;
     }
 
     public LocalDateTime getDeadline() {
         return deadline;
     }
 
-    void setDeadline(LocalDateTime deadline) {
+    void setDeadline(final LocalDateTime deadline) {
         this.deadline = deadline;
     }
 
-    public void updateFrom(Task source) {
+    public void updateFrom(final Task source) {
         description = source.getDescription();
         done = source.isDone();
         deadline = source.getDeadline();
