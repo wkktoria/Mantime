@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>io.github.wkktoria</groupId>
-    <artifactId>managetime</artifactId>
+    <artifactId>manage-time</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>managetime</name>
+    <name>manage-time</name>
     <description>Simple time management application</description>
     <properties>
         <java.version>21</java.version>
