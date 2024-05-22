@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "task_groups")
-public class TaskGroup {
+public class TaskGroups {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -15,7 +15,7 @@ public class TaskGroup {
     @Embedded
     private Audit audit = new Audit();
 
-    public TaskGroup() {
+    public TaskGroups() {
     }
 
     public Long getId() {
