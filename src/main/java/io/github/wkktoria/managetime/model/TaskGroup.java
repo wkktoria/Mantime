@@ -3,6 +3,8 @@ package io.github.wkktoria.managetime.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
+import java.util.Set;
+
 @Entity
 @Table(name = "task_groups")
 public class TaskGroup {
@@ -14,6 +16,8 @@ public class TaskGroup {
     private boolean done;
     @Embedded
     private Audit audit = new Audit();
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "group")
+    private Set<Task> tasks;
 
     public TaskGroup() {
     }
@@ -40,5 +44,13 @@ public class TaskGroup {
 
     void setDone(final boolean done) {
         this.done = done;
+    }
+
+    public Set<Task> getTasks() {
+        return tasks;
+    }
+
+    void setTasks(final Set<Task> tasks) {
+        this.tasks = tasks;
     }
 }
