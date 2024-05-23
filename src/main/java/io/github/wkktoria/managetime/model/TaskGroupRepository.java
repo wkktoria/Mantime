@@ -9,4 +9,6 @@ public interface TaskGroupRepository {
     Optional<TaskGroup> findById(Long id);
 
     TaskGroup save(TaskGroup taskGroup);
+
+    boolean existsByDoneIsFalseAndProjectId(Long projectId);
 }
