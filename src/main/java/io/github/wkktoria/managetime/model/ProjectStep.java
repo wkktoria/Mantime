@@ -3,26 +3,20 @@ package io.github.wkktoria.managetime.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
-import java.util.Set;
-
 @Entity
-@Table(name = "task_groups")
-public class TaskGroup {
+@Table(name = "project_steps")
+public class ProjectStep {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotBlank(message = "Task group description cannot be empty")
+    @NotBlank(message = "Project step description cannot be empty")
     private String description;
-    private boolean done;
-    @Embedded
-    private Audit audit = new Audit();
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "group")
-    private Set<Task> tasks;
+    private int daysToDeadline;
     @ManyToOne
     @JoinColumn(name = "project_id")
     private Project project;
 
-    public TaskGroup() {
+    public ProjectStep() {
     }
 
     public Long getId() {
@@ -41,20 +35,12 @@ public class TaskGroup {
         this.description = description;
     }
 
-    public boolean isDone() {
-        return done;
+    public int getDaysToDeadline() {
+        return daysToDeadline;
     }
 
-    void setDone(final boolean done) {
-        this.done = done;
-    }
-
-    public Set<Task> getTasks() {
-        return tasks;
-    }
-
-    void setTasks(final Set<Task> tasks) {
-        this.tasks = tasks;
+    void setDaysToDeadline(final int daysToDeadline) {
+        this.daysToDeadline = daysToDeadline;
     }
 
     Project getProject() {
