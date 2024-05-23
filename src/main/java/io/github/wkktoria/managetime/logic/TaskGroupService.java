@@ -6,18 +6,16 @@ import io.github.wkktoria.managetime.model.TaskRepository;
 import io.github.wkktoria.managetime.model.projection.GroupReadModel;
 import io.github.wkktoria.managetime.model.projection.GroupWriteModel;
 import org.springframework.stereotype.Service;
-import org.springframework.web.context.annotation.RequestScope;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@RequestScope
-class TaskGroupService {
+public class TaskGroupService {
     private final TaskGroupRepository repository;
     private final TaskRepository taskRepository;
 
-    TaskGroupService(final TaskGroupRepository repository, final TaskRepository taskRepository) {
+    public TaskGroupService(final TaskGroupRepository repository, final TaskRepository taskRepository) {
         this.repository = repository;
         this.taskRepository = taskRepository;
     }
