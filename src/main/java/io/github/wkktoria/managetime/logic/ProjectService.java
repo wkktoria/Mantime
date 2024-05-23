@@ -30,7 +30,7 @@ public class ProjectService {
     }
 
     public GroupReadModel createGroup(LocalDateTime deadline, Long projectId) {
-        if (config.getTemplate().isAllowMultipleTasks() && taskGroupRepository.existsByDoneIsFalseAndProjectId(projectId)) {
+        if (!config.getTemplate().isAllowMultipleTasks() && taskGroupRepository.existsByDoneIsFalseAndProjectId(projectId)) {
             throw new IllegalStateException("Only one undone group from project is allowed");
         }
         TaskGroup result = repository.findById(projectId)
