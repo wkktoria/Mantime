@@ -30,11 +30,11 @@ public class GroupReadModel {
         this.description = description;
     }
 
-    LocalDateTime getDeadline() {
+    public LocalDateTime getDeadline() {
         return deadline;
     }
 
-    void setDeadline(final LocalDateTime deadline) {
+    public void setDeadline(final LocalDateTime deadline) {
         this.deadline = deadline;
     }
 
