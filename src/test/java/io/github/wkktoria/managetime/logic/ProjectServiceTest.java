@@ -38,7 +38,7 @@ class ProjectServiceTest {
         return new InMemoryGroupRepository();
     }
 
-    private static Project projectWith(String projectDescription, Set<Integer> daysToDeadline) {
+    private static Project projectWith(Set<Integer> daysToDeadline) {
         var steps = daysToDeadline.stream()
                 .map(dayToDeadline -> {
                     var step = mock(ProjectStep.class);
@@ -47,10 +47,8 @@ class ProjectServiceTest {
                     return step;
                 }).collect(Collectors.toSet());
         var result = mock(Project.class);
-        when(result.getDescription()).thenReturn(projectDescription);
+        when(result.getDescription()).thenReturn("bar");
         when(result.getSteps()).thenReturn(steps);
-
-        String description = result.getDescription();
 
         return result;
     }
@@ -115,7 +113,7 @@ class ProjectServiceTest {
     @DisplayName("should create a new group from the project")
     void createGroup_configurationIsOk_existingProject_createsAndSavesGroup() {
         // given
-        var project = projectWith("bar", Set.of(-1, -2));
+        var project = projectWith(Set.of(-1, -2));
         var mockRepository = mock(ProjectRepository.class);
         when(mockRepository.findById(anyLong())).thenReturn(Optional.of(project));
 
@@ -134,7 +132,7 @@ class ProjectServiceTest {
         // then
         assertThat(result.getDescription()).isEqualTo("bar");
         assertThat(result.getDeadline()).isEqualTo(today.minusDays(1));
-        assertThat(result.getTasks().stream().allMatch(task -> task.getDescription().equals("foo")));
+        assertThat(result.getTasks().stream().allMatch(task -> task.getDescription().equals("foo"))).isTrue();
         assertThat(countBeforeCall + 1).isEqualTo(inMemoryGroupRepository.count());
     }
 
