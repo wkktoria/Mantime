@@ -3,13 +3,11 @@ package io.github.wkktoria.managetime.logic;
 import io.github.wkktoria.managetime.TaskConfigurationProperties;
 import io.github.wkktoria.managetime.model.*;
 import io.github.wkktoria.managetime.model.projection.GroupReadModel;
-import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Service
 public class ProjectService {
     private ProjectRepository repository;
     private TaskGroupRepository taskGroupRepository;
