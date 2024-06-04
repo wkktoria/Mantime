@@ -9,9 +9,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ProjectService {
-    private ProjectRepository repository;
-    private TaskGroupRepository taskGroupRepository;
-    private TaskConfigurationProperties config;
+    private final ProjectRepository repository;
+    private final TaskGroupRepository taskGroupRepository;
+    private final TaskConfigurationProperties config;
 
     public ProjectService(final ProjectRepository repository, final TaskGroupRepository taskGroupRepository, final TaskConfigurationProperties config) {
         this.repository = repository;
