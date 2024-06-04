@@ -5,12 +5,10 @@ import io.github.wkktoria.managetime.model.TaskGroupRepository;
 import io.github.wkktoria.managetime.model.TaskRepository;
 import io.github.wkktoria.managetime.model.projection.GroupReadModel;
 import io.github.wkktoria.managetime.model.projection.GroupWriteModel;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Service
 public class TaskGroupService {
     private final TaskGroupRepository repository;
     private final TaskRepository taskRepository;
