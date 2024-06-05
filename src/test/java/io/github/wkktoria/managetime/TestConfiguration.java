@@ -58,7 +58,16 @@ class TestConfiguration {
 
             @Override
             public Task save(final Task task) {
-                return tasks.put((long) (tasks.size() + 1), task);
+                long key = tasks.size() + 1;
+                try {
+                    var field = Task.class.getDeclaredField("id");
+                    field.setAccessible(true);
+                    field.set(task, key);
+                } catch (NoSuchFieldException | IllegalAccessException e) {
+                    throw new RuntimeException(e);
+                }
+                tasks.put(key, task);
+                return tasks.get(key);
             }
 
             @Override
