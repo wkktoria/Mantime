@@ -14,6 +14,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
+@RequestMapping("/tasks")
 class TaskController {
     private static final Logger logger = LoggerFactory.getLogger(TaskController.class);
     private final TaskRepository repository;
@@ -22,19 +23,19 @@ class TaskController {
         this.repository = repository;
     }
 
-    @GetMapping(value = "/tasks", params = {"!sort", "!page", "!size"})
+    @GetMapping(params = {"!sort", "!page", "!size"})
     ResponseEntity<List<Task>> readAllTasks() {
         logger.info("Reading all the tasks");
         return ResponseEntity.ok(repository.findAll());
     }
 
-    @GetMapping("/tasks")
+    @GetMapping
     ResponseEntity<List<Task>> readAllTasks(Pageable pageable) {
         logger.info("Reading all the pageable tasks");
         return ResponseEntity.ok(repository.findAll(pageable).getContent());
     }
 
-    @GetMapping("/tasks/{id}")
+    @GetMapping("/{id}")
     ResponseEntity<Task> readTask(@PathVariable Long id) {
         logger.info("Reading task with id {}", id);
         if (repository.findById(id).isEmpty()) {
@@ -43,7 +44,7 @@ class TaskController {
         return ResponseEntity.ok(repository.findById(id).get());
     }
 
-    @PostMapping("/tasks")
+    @PostMapping
     ResponseEntity<Task> createTask(@Valid @RequestBody Task task) {
         logger.info("Creating new task");
         Task result = repository.save(task);
@@ -51,7 +52,7 @@ class TaskController {
     }
 
     @Transactional
-    @PutMapping("/tasks/{id}")
+    @PutMapping("/{id}")
     ResponseEntity<Void> updateTask(@PathVariable Long id, @Valid @RequestBody Task toUpdate) {
         logger.info("Updating task with id {}", id);
         if (!repository.existsById(id)) {
@@ -62,7 +63,7 @@ class TaskController {
     }
 
     @Transactional
-    @PatchMapping("/tasks/{id}")
+    @PatchMapping("/{id}")
     public ResponseEntity<Void> toggleTask(@PathVariable Long id) {
         logger.info("Toggling task with id {}", id);
         if (!repository.existsById(id)) {
