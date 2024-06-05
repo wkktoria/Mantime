@@ -44,6 +44,12 @@ class TaskController {
         return ResponseEntity.ok(repository.findById(id).get());
     }
 
+    @GetMapping("/search/done")
+    ResponseEntity<List<Task>> readDoneTasks(@RequestParam(defaultValue = "true", required = false) boolean status) {
+        logger.info("Reading all done tasks");
+        return ResponseEntity.ok(repository.findByDone(status));
+    }
+
     @PostMapping
     ResponseEntity<Task> createTask(@Valid @RequestBody Task task) {
         logger.info("Creating new task");
