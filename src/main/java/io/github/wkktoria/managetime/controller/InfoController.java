@@ -2,9 +2,11 @@ package io.github.wkktoria.managetime.controller;
 
 import io.github.wkktoria.managetime.TaskConfigurationProperties;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/info")
 class InfoController {
     private final TaskConfigurationProperties taskConfigurationProperties;
 
@@ -12,7 +14,7 @@ class InfoController {
         this.taskConfigurationProperties = taskConfigurationProperties;
     }
 
-    @GetMapping("info/allowMultipleTasks")
+    @GetMapping("/allowMultipleTasks")
     boolean isAllowMultipleTasks() {
         return taskConfigurationProperties.getTemplate().isAllowMultipleTasks();
     }
