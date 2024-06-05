@@ -36,4 +36,19 @@ class TaskControllerE2ETest {
         // then
         assertThat(result).hasSize(initialSize + 2);
     }
+
+    @Test
+    void httpGet_returnsGivenTask() {
+        // given
+        var description = "foo";
+        var deadline = LocalDateTime.now();
+        var task = repository.save(new Task(description, deadline));
+
+        // when
+        var result = restTemplate.getForObject("http://localhost:" + port + "/tasks/" + task.getId(), Task.class);
+
+        // then
+        assertThat(result.getDescription()).isEqualTo(description);
+        assertThat(result.getDeadline()).isEqualTo(deadline);
+    }
 }
