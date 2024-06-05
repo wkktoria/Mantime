@@ -53,6 +53,10 @@ class ProjectServiceTest {
         return result;
     }
 
+    private static TaskGroupService dummyGroupService(final InMemoryGroupRepository inMemoryGroupRepository) {
+        return new TaskGroupService(inMemoryGroupRepository, null);
+    }
+
     @Test
     @DisplayName("should throw IllegalStateException when configured to allow just one group and the other undone group exists")
     void createGroup_noMultipleGroupsConfig_And_undoneGroupExists_throwsIllegalStateException() {
@@ -61,7 +65,7 @@ class ProjectServiceTest {
         var mockConfig = configurationReturning(false);
 
         // system under test
-        var toTest = new ProjectService(null, mockGroupRepository, mockConfig);
+        var toTest = new ProjectService(null, mockGroupRepository, mockConfig, null);
 
         // when
         var exception = catchThrowable(() -> toTest.createGroup(LocalDateTime.now(), 0L));
@@ -80,7 +84,7 @@ class ProjectServiceTest {
         var mockConfig = configurationReturning(true);
 
         // system under test
-        var toTest = new ProjectService(mockRepository, null, mockConfig);
+        var toTest = new ProjectService(mockRepository, null, mockConfig, null);
 
         // when
         var exception = catchThrowable(() -> toTest.createGroup(LocalDateTime.now(), 0L));
@@ -100,7 +104,7 @@ class ProjectServiceTest {
         var mockConfig = configurationReturning(true);
 
         // system under test
-        var toTest = new ProjectService(mockRepository, mockGroupRepository, mockConfig);
+        var toTest = new ProjectService(mockRepository, mockGroupRepository, mockConfig, null);
 
         // when
         var exception = catchThrowable(() -> toTest.createGroup(LocalDateTime.now(), 0L));
@@ -119,12 +123,13 @@ class ProjectServiceTest {
 
         var mockConfig = configurationReturning(true);
         var inMemoryGroupRepository = inMemoryGroupRepository();
+        var serviceWithInMemoryRepository = dummyGroupService(inMemoryGroupRepository);
 
         var today = LocalDate.now().atStartOfDay();
         int countBeforeCall = inMemoryGroupRepository.count();
 
         // system under test
-        var toTest = new ProjectService(mockRepository, inMemoryGroupRepository, mockConfig);
+        var toTest = new ProjectService(mockRepository, inMemoryGroupRepository, mockConfig, serviceWithInMemoryRepository);
 
         // when
         var result = toTest.createGroup(today, 1L);
