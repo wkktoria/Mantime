@@ -8,13 +8,11 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
-import org.springframework.test.context.ActiveProfiles;
 
 import java.time.LocalDateTime;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-@ActiveProfiles("integration")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class TaskControllerE2ETest {
     @Qualifier("testRepository")
@@ -28,6 +26,7 @@ class TaskControllerE2ETest {
     @Test
     void httpGet_returnsAllTheTasks() {
         // given
+        var initialSize = repository.findAll().size();
         repository.save(new Task("foo", LocalDateTime.now()));
         repository.save(new Task("bar", LocalDateTime.now()));
 
@@ -35,6 +34,6 @@ class TaskControllerE2ETest {
         var result = restTemplate.getForObject("http://localhost:" + port + "/tasks", Task[].class);
 
         // then
-        assertThat(result).hasSize(2);
+        assertThat(result).hasSize(initialSize + 2);
     }
 }
