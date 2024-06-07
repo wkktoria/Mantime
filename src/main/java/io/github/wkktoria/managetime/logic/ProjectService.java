@@ -7,6 +7,7 @@ import io.github.wkktoria.managetime.model.TaskGroupRepository;
 import io.github.wkktoria.managetime.model.projection.GroupReadModel;
 import io.github.wkktoria.managetime.model.projection.GroupTaskWriteModel;
 import io.github.wkktoria.managetime.model.projection.GroupWriteModel;
+import io.github.wkktoria.managetime.model.projection.ProjectWriteModel;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -30,8 +31,8 @@ public class ProjectService {
         return repository.findAll();
     }
 
-    public Project save(Project toSave) {
-        return repository.save(toSave);
+    public Project save(ProjectWriteModel toSave) {
+        return repository.save(toSave.toProject());
     }
 
     public GroupReadModel createGroup(LocalDateTime deadline, Long projectId) {
@@ -50,7 +51,7 @@ public class ProjectService {
                                 return task;
                             }).collect(Collectors.toSet())
                     );
-                    return taskGroupService.createGroup(targetGroup);
+                    return taskGroupService.createGroup(targetGroup, project);
                 }).orElseThrow(() -> new IllegalArgumentException("Project with given id not found"));
         return result;
     }

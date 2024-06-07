@@ -1,5 +1,6 @@
 package io.github.wkktoria.managetime.logic;
 
+import io.github.wkktoria.managetime.model.Project;
 import io.github.wkktoria.managetime.model.TaskGroup;
 import io.github.wkktoria.managetime.model.TaskGroupRepository;
 import io.github.wkktoria.managetime.model.TaskRepository;
@@ -19,7 +20,11 @@ public class TaskGroupService {
     }
 
     public GroupReadModel createGroup(GroupWriteModel source) {
-        TaskGroup result = repository.save(source.toGroup());
+        return createGroup(source, null);
+    }
+
+    GroupReadModel createGroup(GroupWriteModel source, Project project) {
+        TaskGroup result = repository.save(source.toGroup(project));
         return new GroupReadModel(result);
     }
 
