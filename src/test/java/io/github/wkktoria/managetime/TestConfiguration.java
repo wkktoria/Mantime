@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import javax.sql.DataSource;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Configuration
@@ -77,6 +78,11 @@ class TestConfiguration {
 
             @Override
             public List<Task> findAllByGroupId(final Long groupId) {
+                return List.of();
+            }
+
+            @Override
+            public List<Task> findAllByDoneIsFalseAndDeadlineLessThanEqual(final LocalDateTime deadline) {
                 return List.of();
             }
         };
