@@ -15,3 +15,8 @@ spring:
   flyway:
     user: ${DB_USER}
     password: ${DB_PASSWORD}
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
