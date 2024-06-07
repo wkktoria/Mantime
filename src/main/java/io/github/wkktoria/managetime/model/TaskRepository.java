@@ -21,4 +21,6 @@ public interface TaskRepository {
     Task save(Task task);
 
     List<Task> findByDone(@Param("status") boolean done);
+
+    List<Task> findAllByGroupId(Long groupId);
 }

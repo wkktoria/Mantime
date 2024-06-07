@@ -8,11 +8,13 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class GroupReadModel {
+    private final Long id;
     private String description;
     private LocalDateTime deadline; // Deadline of the latest task in group.
     private Set<GroupTaskReadModel> tasks;
 
     public GroupReadModel(TaskGroup group) {
+        id = group.getId();
         description = group.getDescription();
         group.getTasks().stream()
                 .map(Task::getDeadline)
@@ -20,6 +22,10 @@ public class GroupReadModel {
         tasks = group.getTasks().stream()
                 .map(GroupTaskReadModel::new)
                 .collect(Collectors.toSet());
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getDescription() {

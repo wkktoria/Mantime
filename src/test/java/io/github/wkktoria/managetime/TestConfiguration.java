@@ -74,6 +74,11 @@ class TestConfiguration {
             public List<Task> findByDone(final boolean done) {
                 return List.of();
             }
+
+            @Override
+            public List<Task> findAllByGroupId(final Long groupId) {
+                return List.of();
+            }
         };
     }
 }

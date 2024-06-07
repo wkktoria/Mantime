@@ -31,7 +31,7 @@ public class TaskGroupService {
 
     public void toggleGroup(Long groupId) {
         if (taskRepository.existsByDoneIsFalseAndGroupId(groupId)) {
-            throw new IllegalStateException("Group has undone tasks. Done all the tasks first");
+            throw new IllegalStateException("Group has undone tasks. Do all the tasks first");
         }
         TaskGroup result = repository.findById(groupId)
                 .orElseThrow(() -> new IllegalArgumentException("Group with given id not found"));
