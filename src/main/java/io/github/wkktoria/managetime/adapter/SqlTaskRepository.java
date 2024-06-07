@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @SuppressWarnings("unused")
@@ -22,4 +23,7 @@ interface SqlTaskRepository extends JpaRepository<Task, Long>, TaskRepository {
 
     @Override
     List<Task> findAllByGroupId(Long groupId);
+
+    @Override
+    List<Task> findAllByDoneIsFalseAndDeadlineLessThanEqual(LocalDateTime deadline);
 }

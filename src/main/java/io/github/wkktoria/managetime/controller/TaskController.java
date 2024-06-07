@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -48,6 +49,12 @@ class TaskController {
     ResponseEntity<List<Task>> readDoneTasks(@RequestParam(defaultValue = "true", required = false) boolean status) {
         logger.info("Reading all done tasks");
         return ResponseEntity.ok(repository.findByDone(status));
+    }
+
+    @GetMapping("/search/today")
+    ResponseEntity<List<Task>> readTodayTasks() {
+        logger.info("Reading all today tasks");
+        return ResponseEntity.ok(repository.findAllByDoneIsFalseAndDeadlineLessThanEqual(LocalDateTime.now()));
     }
 
     @PostMapping
