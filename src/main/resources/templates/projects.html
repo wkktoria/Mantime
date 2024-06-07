@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -8,9 +8,32 @@
 </head>
 <body>
 <main>
-    <fieldset>
-        <legend>New project</legend>
-    </fieldset>
+    <p th:if="${message != null}" th:text="${message}"></p>
+    <!--/*@thymesVar id="project" type="io.github.wkktoria.managetime.model.projection.ProjectWriteModel"*/-->
+    <form action="#" method="post" th:action="@{/projects}" th:object="${project}">
+        <fieldset>
+            <legend>New project</legend>
+            <label for="description">Description</label>
+            <input id="description" th:field="*{description}" type="text">
+            <fieldset th:each="step, stat: *{steps}">
+                <legend th:text="|Step ${stat.index + 1}|"></legend>
+                <label>Description
+                    <input th:field="*{steps[__${stat.index}__].description}" type="text">
+                </label>
+                <br>
+                <label>Days to deadline
+                    <input th:field="*{steps[__${stat.index}__].daysToDeadline}" type="text">
+                </label>
+            </fieldset>
+            <span>
+                <button name="addStep" type="submit">+</button>
+            </span>
+        </fieldset>
+        <span>
+            <button type="submit">Add</button>
+            <button type="reset">Clear</button>
+        </span>
+    </form>
 </main>
 </body>
 </html>
