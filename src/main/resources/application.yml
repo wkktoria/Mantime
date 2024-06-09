@@ -1,6 +1,6 @@
 spring:
   application:
-    name: 'managetime'
+    name: 'ManageTime'
   main:
     banner-mode: off
 task:
