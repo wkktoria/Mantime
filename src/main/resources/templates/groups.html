@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link href="https://igoradamenko.com/awsm.css/v2/css/awsm.min.css" rel="stylesheet">
+    <title>Mantime - Groups</title>
+    <style>
+        .Bd {
+            border: 1px solid #000;
+        }
+
+        .P\(0\) {
+            padding: 0;
+        }
+
+        .P\(10\) {
+            padding: 10px;
+        }
+
+        .M\(0\) {
+            margin: 0;
+        }
+
+        .C\(red\) {
+            color: red;
+        }
+
+        .Bdc\(red\) {
+            border-color: red !important;
+        }
+    </style>
+</head>
+<body>
+<main>
+    <p th:if="${message != null}" th:text="${message}"></p>
+    <dl class="Bd P(10)" th:each="group : ${groups}">
+        <dt>
+            <label>
+                <input type="checkbox">
+                <span th:text="${group.description}"></span>
+                <small th:text="|${group.deadline}|"></small>
+            </label>
+            <hr class="M(0)">
+        </dt>
+        <dd>
+            <a th:href="@{/tasks.html(group=${group.id})}">
+                <ul class="P(0)">
+                    <li th:each="task : ${group.tasks}">
+                        <span th:text="${task.description}" th:unless="${task.done}"></span>
+                        <del th:if="${task.done}" th:text="|${task.description}|"></del>
+                    </li>
+                </ul>
+            </a>
+        </dd>
+    </dl>
+    <form action="#" method="post" th:action="@{/groups}" th:object="${group}">
+        <p class="C(red)" th:errors="*{all}" th:if="${#fields.hasAnyErrors()}"></p>
+        <fieldset>
+            <legend>New group</legend>
+            <label for="description">Description</label>
+            <input id="description" th:errorclass="'Bdc(red)'" th:field="*{description}" type="text">
+            <fieldset th:each="task, stat: *{tasks}">
+                <legend th:text="|Task ${stat.index + 1}|"></legend>
+                <label>Description
+                    <input th:errorclass="'Bdc(red)'" th:field="*{tasks[__${stat.index}__].description}" type="text">
+                </label>
+                <br>
+                <label>Deadline
+                    <input pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}" th:errorclass="'Bdc(red)'"
+                           th:field="*{tasks[__${stat.index}__].deadline}" type="datetime-local">
+                </label>
+            </fieldset>
+            <span>
+                <button name="addTask" type="submit">+</button>
+            </span>
+        </fieldset>
+        <span>
+            <button type="submit">Add</button>
+            <button type="reset">Clear</button>
+        </span>
+    </form>
+</main>
+</body>
+</html>

@@ -2,11 +2,15 @@ package io.github.wkktoria.mantime.model.projection;
 
 import io.github.wkktoria.mantime.model.Task;
 import io.github.wkktoria.mantime.model.TaskGroup;
+import jakarta.validation.constraints.NotBlank;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 
 public class GroupTaskWriteModel {
+    @NotBlank(message = "Task description cannot be empty")
     private String description;
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime deadline;
 
     public String getDescription() {
