@@ -17,6 +17,14 @@
         .P\(10\) {
             padding: 10px;
         }
+
+        .C\(red\) {
+            color: red;
+        }
+
+        .Bdc\(red\) {
+            border-color: red !important;
+        }
     </style>
 </head>
 <body>
@@ -33,18 +41,19 @@
     </dl>
     <!--/*@thymesVar id="project" type="io.github.wkktoria.mantime.model.projection.ProjectWriteModel"*/-->
     <form action="#" method="post" th:action="@{/projects}" th:object="${project}">
+        <p class="C(red)" th:errors="*{all}" th:if="${#fields.hasAnyErrors()}"></p>
         <fieldset>
             <legend>New project</legend>
             <label for="description">Description</label>
-            <input id="description" th:field="*{description}" type="text">
+            <input id="description" th:errorclass="'Bdc(red)'" th:field="*{description}" type="text">
             <fieldset th:each="step, stat: *{steps}">
                 <legend th:text="|Step ${stat.index + 1}|"></legend>
                 <label>Description
-                    <input th:field="*{steps[__${stat.index}__].description}" type="text">
+                    <input th:errorclass="'Bdc(red)'" th:field="*{steps[__${stat.index}__].description}" type="text">
                 </label>
                 <br>
                 <label>Days to deadline
-                    <input th:field="*{steps[__${stat.index}__].daysToDeadline}" type="text">
+                    <input th:errorclass="'Bdc(red)'" th:field="*{steps[__${stat.index}__].daysToDeadline}" type="text">
                 </label>
             </fieldset>
             <span>

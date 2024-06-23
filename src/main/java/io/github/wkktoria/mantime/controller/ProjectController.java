@@ -4,8 +4,10 @@ import io.github.wkktoria.mantime.logic.ProjectService;
 import io.github.wkktoria.mantime.model.Project;
 import io.github.wkktoria.mantime.model.ProjectStep;
 import io.github.wkktoria.mantime.model.projection.ProjectWriteModel;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,7 +31,12 @@ class ProjectController {
     }
 
     @PostMapping
-    String addProject(@ModelAttribute("project") ProjectWriteModel project, Model model) {
+    String addProject(@ModelAttribute("project") @Valid ProjectWriteModel project,
+                      BindingResult bindingResult,
+                      Model model) {
+        if (bindingResult.hasErrors()) {
+            return "projects";
+        }
         service.save(project);
         model.addAttribute("project", new ProjectWriteModel());
         model.addAttribute("message", "Project added successfully.");
