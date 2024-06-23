@@ -4,6 +4,7 @@ import io.github.wkktoria.mantime.model.Task;
 import io.github.wkktoria.mantime.model.TaskGroup;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -18,6 +19,7 @@ public class GroupReadModel {
         description = group.getDescription();
         group.getTasks().stream()
                 .map(Task::getDeadline)
+                .filter(Objects::nonNull)
                 .max(LocalDateTime::compareTo).ifPresent(deadline -> this.deadline = deadline);
         tasks = group.getTasks().stream()
                 .map(GroupTaskReadModel::new)
