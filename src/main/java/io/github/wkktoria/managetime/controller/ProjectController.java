@@ -1,6 +1,7 @@
 package io.github.wkktoria.managetime.controller;
 
 import io.github.wkktoria.managetime.logic.ProjectService;
+import io.github.wkktoria.managetime.model.Project;
 import io.github.wkktoria.managetime.model.ProjectStep;
 import io.github.wkktoria.managetime.model.projection.ProjectWriteModel;
 import org.springframework.stereotype.Controller;
@@ -9,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/projects")
@@ -37,5 +40,10 @@ class ProjectController {
     String addProjectStep(@ModelAttribute("project") ProjectWriteModel currentProject) {
         currentProject.getSteps().add(new ProjectStep());
         return "projects";
+    }
+
+    @ModelAttribute("projects")
+    List<Project> getProjects() {
+        return service.readAll();
     }
 }
