@@ -5,14 +5,27 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <link href="https://igoradamenko.com/awsm.css/v2/css/awsm.min.css" rel="stylesheet">
     <title>Mantime - Projects</title>
+    <style>
+        .Bd {
+            border: 1px solid #000;
+        }
+
+        .P\(0\) {
+            padding: 0;
+        }
+
+        .P\(10\) {
+            padding: 10px;
+        }
+    </style>
 </head>
 <body>
 <main>
     <p th:if="${message != null}" th:text="${message}"></p>
-    <dl th:each="project : ${projects}">
+    <dl class="Bd P(10)" th:each="project : ${projects}">
         <dt th:text="${project.description}">...</dt>
         <dd>
-            <ul>
+            <ul class="P(0)">
                 <li th:each="step : ${project.steps}"
                     th:text="|${step.description} (${step.daysToDeadline} days)|"></li>
             </ul>
