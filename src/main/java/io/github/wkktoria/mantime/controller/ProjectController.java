@@ -38,6 +38,7 @@ class ProjectController {
         }
         service.save(project);
         model.addAttribute("project", new ProjectWriteModel());
+        model.addAttribute("projects", getProjects());
         model.addAttribute("message", "Project added successfully");
         return "projects";
     }
