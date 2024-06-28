@@ -4,6 +4,7 @@ import io.github.wkktoria.mantime.logic.ProjectService;
 import io.github.wkktoria.mantime.model.Project;
 import io.github.wkktoria.mantime.model.ProjectStep;
 import io.github.wkktoria.mantime.model.projection.ProjectWriteModel;
+import io.micrometer.core.annotation.Timed;
 import jakarta.validation.Valid;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -49,6 +50,7 @@ class ProjectController {
         return "projects";
     }
 
+    @Timed(value = "project.create.group", histogram = true, percentiles = {0.5, 0.95, 0.99})
     @PostMapping("/{id}")
     String createGroup(@ModelAttribute("project") ProjectWriteModel currentProject,
                        Model model,
