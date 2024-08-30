@@ -1,5 +1,6 @@
 package io.github.wkktoria.mantime.model;
 
+import io.github.wkktoria.mantime.model.event.TaskEvent;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
@@ -58,6 +59,11 @@ public class Task {
 
     public void setDone(final boolean done) {
         this.done = done;
+    }
+
+    public TaskEvent toggle() {
+        done = !done;
+        return TaskEvent.changed(this);
     }
 
     public LocalDateTime getDeadline() {
