@@ -39,7 +39,7 @@
             event.preventDefault();
 
             const resp = await fetch('/tasks', {
-                method: 'post',
+                method: 'POST',
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
@@ -68,9 +68,15 @@
             `;
 
             result.querySelector('input').addEventListener('click', async (event) => {
-                const response = await fetch(`/tasks/${id}`, {method: 'patch'});
+                const response = await fetch(`/tasks/${id}`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                });
 
-                if (response.ok) {
+                if (!response.ok) {
                     event.target.checked = !event.target.checked;
                 }
             });
